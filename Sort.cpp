@@ -40,8 +40,6 @@ void Sort::sortByIncreasingCompactness(std::list<Shape *> * shapeList)
 {
 	shapeList->sort([](Shape * first, Shape * second)
 	{
-		std::cout << first->getShapeName() << ':' << (4*M_PI*first->area()) / pow(first->perimeter(),2) << std::endl;
-		std::cout << second->getShapeName() << ':' << (4*M_PI*second->area()) / pow(second->perimeter(), 2) << std::endl;
-		return (4*M_PI*first->area()) / pow(first->perimeter(),2) < (4*M_PI*second->area()) / pow(second->perimeter(), 2);
+		return (first->area() / first->perimeter()) < (second->area() / second->perimeter());
 	});
 }
