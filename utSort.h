@@ -6,7 +6,7 @@
 
 TEST (Sort, sortByIncreasingPerimeter) {
 	
-	Rectangle testRectangle1(0, 0, 2, 2);
+	Rectangle testRectangle(0, 0, 2, 2);
 	Circle testCircle(0, 0, 4);
 	struct Coordinate p1 = {0, 0};
 	struct Coordinate p2 = {2, 0};
@@ -14,7 +14,7 @@ TEST (Sort, sortByIncreasingPerimeter) {
 	Triangle testTriangle(p1, p2, p3);
 	
 	std::list<Shape *> testShapeList;
-	testShapeList.push_back(&testRectangle1);
+	testShapeList.push_back(&testRectangle);
 	testShapeList.push_back(&testCircle);
 	testShapeList.push_back(&testTriangle);
 	
@@ -23,16 +23,16 @@ TEST (Sort, sortByIncreasingPerimeter) {
 	
 	std::list<Shape *>::iterator it = testShapeList.begin();
 	
-	ASSERT_EQ((*it)->getShapeName(), "t");
+	ASSERT_EQ(*it, &testTriangle);
 	*it++;
-	ASSERT_EQ((*it)->getShapeName(), "r");
+	ASSERT_EQ(*it, &testRectangle);
 	*it++;
-	ASSERT_EQ((*it)->getShapeName(), "c");
+	ASSERT_EQ(*it, &testCircle);
 }
 
 TEST (Sort, sortByDecreasingPerimeter) {
 	
-	Rectangle testRectangle1(0, 0, 2, 2);
+	Rectangle testRectangle(0, 0, 2, 2);
 	Circle testCircle(0, 0, 4);
 	struct Coordinate p1 = {0, 0};
 	struct Coordinate p2 = {2, 0};
@@ -40,7 +40,7 @@ TEST (Sort, sortByDecreasingPerimeter) {
 	Triangle testTriangle(p1, p2, p3);
 	
 	std::list<Shape *> testShapeList;
-	testShapeList.push_back(&testRectangle1);
+	testShapeList.push_back(&testRectangle);
 	testShapeList.push_back(&testCircle);
 	testShapeList.push_back(&testTriangle);
 	
@@ -49,16 +49,16 @@ TEST (Sort, sortByDecreasingPerimeter) {
 	
 	std::list<Shape *>::iterator it = testShapeList.begin();
 	
-	ASSERT_EQ((*it)->getShapeName(), "c");
+	ASSERT_EQ(*it, &testCircle);
 	*it++;
-	ASSERT_EQ((*it)->getShapeName(), "r");
+	ASSERT_EQ(*it, &testRectangle);
 	*it++;
-	ASSERT_EQ((*it)->getShapeName(), "t");
+	ASSERT_EQ(*it, &testTriangle);
 }
 
 TEST (Sort, sortByIncreasingArea) {
 	
-	Rectangle testRectangle1(0, 0, 2, 2);
+	Rectangle testRectangle(0, 0, 2, 2);
 	Circle testCircle(0, 0, 4);
 	struct Coordinate p1 = {0, 0};
 	struct Coordinate p2 = {2, 0};
@@ -66,7 +66,7 @@ TEST (Sort, sortByIncreasingArea) {
 	Triangle testTriangle(p1, p2, p3);
 	
 	std::list<Shape *> testShapeList;
-	testShapeList.push_back(&testRectangle1);
+	testShapeList.push_back(&testRectangle);
 	testShapeList.push_back(&testCircle);
 	testShapeList.push_back(&testTriangle);
 	
@@ -75,16 +75,16 @@ TEST (Sort, sortByIncreasingArea) {
 	
 	std::list<Shape *>::iterator it = testShapeList.begin();
 	
-	ASSERT_EQ((*it)->getShapeName(), "t");
+	ASSERT_EQ(*it, &testTriangle);
 	*it++;
-	ASSERT_EQ((*it)->getShapeName(), "r");
+	ASSERT_EQ(*it, &testRectangle);
 	*it++;
-	ASSERT_EQ((*it)->getShapeName(), "c");
+	ASSERT_EQ(*it, &testCircle);
 }
 
 TEST (Sort, sortByDecreasingArea) {
 	
-	Rectangle testRectangle1(0, 0, 2, 2);
+	Rectangle testRectangle(0, 0, 2, 2);
 	Circle testCircle(0, 0, 4);
 	struct Coordinate p1 = {0, 0};
 	struct Coordinate p2 = {2, 0};
@@ -92,7 +92,7 @@ TEST (Sort, sortByDecreasingArea) {
 	Triangle testTriangle(p1, p2, p3);
 	
 	std::list<Shape *> testShapeList;
-	testShapeList.push_back(&testRectangle1);
+	testShapeList.push_back(&testRectangle);
 	testShapeList.push_back(&testCircle);
 	testShapeList.push_back(&testTriangle);
 	
@@ -101,16 +101,16 @@ TEST (Sort, sortByDecreasingArea) {
 	
 	std::list<Shape *>::iterator it = testShapeList.begin();
 	
-	ASSERT_EQ((*it)->getShapeName(), "c");
+	ASSERT_EQ(*it, &testCircle);
 	*it++;
-	ASSERT_EQ((*it)->getShapeName(), "r");
+	ASSERT_EQ(*it, &testRectangle);
 	*it++;
-	ASSERT_EQ((*it)->getShapeName(), "t");
+	ASSERT_EQ(*it, &testTriangle);
 }
 
 TEST (Sort, sortByIncreasingCompactness) {
 	
-	Rectangle testRectangle1(0, 0, 2, 2);
+	Rectangle testRectangle(0, 0, 2, 2);
 	Circle testCircle(0, 0, 4);
 	struct Coordinate p1 = {0, 0};
 	struct Coordinate p2 = {2, 0};
@@ -118,7 +118,7 @@ TEST (Sort, sortByIncreasingCompactness) {
 	Triangle testTriangle(p1, p2, p3);
 	
 	std::list<Shape *> testShapeList;
-	testShapeList.push_back(&testRectangle1);
+	testShapeList.push_back(&testRectangle);
 	testShapeList.push_back(&testCircle);
 	testShapeList.push_back(&testTriangle);
 	
@@ -127,11 +127,11 @@ TEST (Sort, sortByIncreasingCompactness) {
 	
 	std::list<Shape *>::iterator it = testShapeList.begin();
 
-	ASSERT_EQ((*it)->getShapeName(), "t");
+	ASSERT_EQ(*it, &testTriangle);
 	*it++;
-	ASSERT_EQ((*it)->getShapeName(), "r");
+	ASSERT_EQ(*it, &testRectangle);
 	*it++;
-	ASSERT_EQ((*it)->getShapeName(), "c");
+	ASSERT_EQ(*it, &testCircle);
 }
 
 #endif
