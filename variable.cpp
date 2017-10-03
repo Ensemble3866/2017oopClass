@@ -2,6 +2,7 @@
 #include "variable.h"
 #include "number.h"
 #include "atom.h"
+#include <iostream>
 using std::string;
 
 Variable::Variable(string s):_symbol(s){}
@@ -29,6 +30,11 @@ bool Variable::match(Atom * atom)
 
 bool Variable::match(Number * num)
 {
-    _value = num->value();
-    return true; 
+    bool ret = _assignable;
+    if(_assignable)
+    {
+        _value = num->value();
+        _assignable = false;
+    }
+    return ret; 
 }

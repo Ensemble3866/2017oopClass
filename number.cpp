@@ -2,9 +2,9 @@
 #include "number.h"
 using std::string;
 
-Number::Number(string s) : _symbol(s)
+Number::Number(string s) : _value(s)
 {
-    _value = std::stoi(_symbol);
+    _symbol = "_" + _value;
 }
 
 string Number::symbol()
@@ -12,7 +12,7 @@ string Number::symbol()
     return _symbol;
 }
 
-int Number::value()
+string Number::value()
 {
     return _value;
 }
@@ -24,7 +24,7 @@ bool Number::operator =(Number num)
 
 bool Number::operator =(Atom a)
 {
-    return _symbol == a.symbol();
+    return false;
 }
 
 bool Number::operator =(Variable var)

@@ -13,7 +13,7 @@ string Atom::symbol()
 
 bool Atom::match(Variable var)
 {
-    
+    return true;
 }
 
 bool Atom::operator =(Atom a)
@@ -26,7 +26,7 @@ bool Atom::operator =(Number num)
     return false;
 }
 
-string Atom::operator =(Variable var)
+bool Atom::operator =(Variable var)
 {
-    //return "false";
+    return var.match(this);
 }

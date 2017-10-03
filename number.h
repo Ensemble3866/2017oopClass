@@ -11,14 +11,14 @@ class Number
     public:
         Number (string s);
         string symbol();
-        int value();
+        string value();
         bool operator =(Number num);
         bool operator =(Atom a);
         bool operator =(Variable var);
 
     private:
         string _symbol;
-        int _value;
+        string _value;
 };
 
 #endif
