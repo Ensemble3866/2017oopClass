@@ -16,26 +16,26 @@ string Variable::symbol()
     return _symbol;
 }
 
-bool Variable::match(Number * num)
+bool Variable::match(Number num)
 {
     bool ret = _assignable;
     if(_assignable)
     {
-        _value = num->value();
+        _value = num.value();
         _assignable = false;
     }
-    if(_value == num->symbol()) ret = true;
+    if(_value == num.symbol()) ret = true;
     return ret; 
 }
 
-bool Variable::match(Atom * atom)
+bool Variable::match(Atom atom)
 {
     bool ret = _assignable;
     if(_assignable)
     {
-        _value = atom->symbol();
+        _value = atom.symbol();
         _assignable = false;
     }
-    if(_value == atom->symbol()) ret = true;
+    if(_value == atom.symbol()) ret = true;
     return ret;
 }
