@@ -27,23 +27,7 @@ bool Number::match(Atom a)
     return false;
 }
 
-bool Number::match(Variable * var)
+bool Number::match(Variable var)
 {
-    return var->match(this);
+    return var.match(this);
 }
-/*
-bool Number::operator =(Number num)
-{
-    return _value == num.value();
-}
-
-bool Number::operator =(Atom a)
-{
-    return false;
-}
-
-bool Number::operator =(Variable var)
-{
-    return var.match(*this);
-}
-*/

@@ -41,7 +41,7 @@ TEST (Number, matchFailureDiffConstant) {
 TEST (Number, matchSuccessToVar) {
     Number _25(25);
     Variable X("X");
-    ASSERT_TRUE(_25.match(&X));
+    ASSERT_TRUE(_25.match(X));
 }
 
 //?- tom=25.
@@ -113,7 +113,7 @@ TEST (Var, matchSuccessToAtomThenFailureToNumber2) {
     Number _25(25);
     Variable X("X");
     ASSERT_TRUE(tom.match(&X));
-    ASSERT_FALSE(_25.match(&X));
+    ASSERT_FALSE(_25.match(X));
 }
 //?- X=tom, X=tom.
 //true.
