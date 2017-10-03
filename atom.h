@@ -13,7 +13,7 @@ class Atom {
         string symbol();
         bool match(Atom a);
         bool match(Number num);
-        bool match(Variable * var);
+        bool match(Variable var);
     private:
       string _symbol;
 };
