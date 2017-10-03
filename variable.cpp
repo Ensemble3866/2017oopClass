@@ -1,5 +1,4 @@
 #include <string>
-#include <iostream>
 #include "variable.h"
 #include "number.h"
 #include "atom.h"
@@ -17,25 +16,26 @@ string Variable::symbol()
     return _symbol;
 }
 
-bool Variable::match(Atom atom)
+bool Variable::match(Number * num)
 {
     bool ret = _assignable;
     if(_assignable)
     {
-        _value = atom.symbol();
+        _value = num->value();
         _assignable = false;
     }
-    std::cout << _value << std::endl;
-    return ret;
+    if(_value == num->symbol()) ret = true;
+    return ret; 
 }
 
-bool Variable::match(Number num)
+bool Variable::match(Atom * atom)
 {
     bool ret = _assignable;
     if(_assignable)
     {
-        _value = num.value();
+        _value = atom->symbol();
         _assignable = false;
     }
-    return ret; 
+    if(_value == atom->symbol()) ret = true;
+    return ret;
 }

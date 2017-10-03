@@ -13,8 +13,8 @@ class Variable
     Variable(string s);
     string value();
     string symbol();
-    bool match(Atom atom);
-    bool match(Number num);
+    bool match(Number * num);
+    bool match(Atom * atom);
 
 private:
     string _value;

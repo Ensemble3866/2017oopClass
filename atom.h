@@ -11,10 +11,9 @@ class Atom {
     public:
         Atom (string s);
         string symbol();
-        bool match(Variable var);
-        bool operator =(Atom a);
-        bool operator =(Number num);
-        bool operator =(Variable var);
+        bool match(Atom a);
+        bool match(Number num);
+        bool match(Variable * var);
     private:
       string _symbol;
 };

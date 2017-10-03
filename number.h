@@ -9,16 +9,16 @@ using std::string;
 class Number
 {
     public:
-        Number (string s);
+        Number (int n);
         string symbol();
-        string value();
-        bool operator =(Number num);
-        bool operator =(Atom a);
-        bool operator =(Variable var);
+        int value();
+        bool match(Number num);
+        bool match(Atom a);
+        bool match(Variable * var);
 
     private:
         string _symbol;
-        string _value;
+        int _value;
 };
 
 #endif

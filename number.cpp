@@ -2,9 +2,9 @@
 #include "number.h"
 using std::string;
 
-Number::Number(string s) : _value(s)
+Number::Number(int n) : _value(n)
 {
-    _symbol = "_" + _value;
+    _symbol = std::to_string(_value);
 }
 
 string Number::symbol()
@@ -12,11 +12,26 @@ string Number::symbol()
     return _symbol;
 }
 
-string Number::value()
+int Number::value()
 {
     return _value;
 }
 
+bool Number::match(Number num)
+{
+    return _value == num.value();
+}
+
+bool Number::match(Atom a)
+{
+    return false;
+}
+
+bool Number::match(Variable * var)
+{
+    return var->match(this);
+}
+/*
 bool Number::operator =(Number num)
 {
     return _value == num.value();
@@ -31,4 +46,4 @@ bool Number::operator =(Variable var)
 {
     return var.match(*this);
 }
- 
+*/
