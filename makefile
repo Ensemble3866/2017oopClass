@@ -1,16 +1,21 @@
 all: hw2
 
 hw2: mainTerm.o number.o variable.o atom.o
+ifeq (${OS}, Windows_NT)
+	g++ -o hw2 mainTerm.o number.o variable.o atom.o -lgtest
+else
 	g++ -o hw2 mainTerm.o number.o variable.o atom.o -lgtest -lpthread
+endif
+
 mainTerm.o: mainTerm.cpp utTerm.h number.h variable.h atom.h
-	g++ -std=gnu++0x -c mainTerm.cpp
+	g++ -std=c++11 -c mainTerm.cpp
 
 number.o: number.cpp number.h
-	g++ -std=gnu++0x -c number.cpp
+	g++ -std=c++11 -c number.cpp
 variable.o: variable.cpp variable.h
-	g++ -std=gnu++0x -c variable.cpp
+	g++ -std=c++11 -c variable.cpp
 atom.o: atom.cpp atom.h
-	g++ -std=gnu++0x -c atom.cpp
+	g++ -std=c++11 -c atom.cpp
 
 #utAtom: mainAtom.o
 #	g++ -o utAtom mainAtom.o -lgtest -lpthread
@@ -44,7 +49,12 @@ atom.o: atom.cpp atom.h
 #g++ -std=c++11 -c var.cpp
 #list.o: list.h list.cpp term.h var.h
 #	g++ -std=c++11 -c list.cpp
-clean:
+
+clean:	
+ifeq (${OS}, Windows_NT)
+	del *.o *.exe
+else
 	rm -f *.o hw2
+endif
 stat:
 	wc *.h *.cpp
