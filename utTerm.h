@@ -2,6 +2,7 @@
 #define UTTERM_H
 #include <string>
 #include "number.h"
+#include <iostream>
 
 //test Number.value()
 TEST (Number,ctor) {

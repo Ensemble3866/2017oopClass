@@ -29,6 +29,6 @@ bool Number::operator =(Atom a)
 
 bool Number::operator =(Variable var)
 {
-    return var.match(this);
+    return var.match(*this);
 }
  

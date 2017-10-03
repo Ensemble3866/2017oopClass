@@ -3,14 +3,14 @@ all: hw2
 hw2: mainTerm.o number.o variable.o atom.o
 	g++ -o hw2 mainTerm.o number.o variable.o atom.o -lgtest -lpthread
 mainTerm.o: mainTerm.cpp utTerm.h number.h variable.h atom.h
-	g++ --std=c++11 -c mainTerm.cpp
+	g++ -std=gnu++0x -c mainTerm.cpp
 
 number.o: number.cpp number.h
-	g++ --std=c++11 -c number.cpp
+	g++ -std=gnu++0x -c number.cpp
 variable.o: variable.cpp variable.h
-	g++ --std=c++11 -c variable.cpp
+	g++ -std=gnu++0x -c variable.cpp
 atom.o: atom.cpp atom.h
-	g++ --std=c++11 -c atom.cpp
+	g++ -std=gnu++0x -c atom.cpp
 
 #utAtom: mainAtom.o
 #	g++ -o utAtom mainAtom.o -lgtest -lpthread
