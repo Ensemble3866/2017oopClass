@@ -11,7 +11,7 @@ class Number
     public:
         Number (int n);
         string symbol();
-        int value();
+        string value();
         bool match(Number num);
         bool match(Atom a);
         bool match(Variable var);

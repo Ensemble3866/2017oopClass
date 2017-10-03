@@ -12,14 +12,14 @@ string Number::symbol()
     return _symbol;
 }
 
-int Number::value()
+string Number::value()
 {
-    return _value;
+    return std::to_string(_value);
 }
 
 bool Number::match(Number num)
 {
-    return _value == num.value();
+    return _value == std::stoi(num.value());
 }
 
 bool Number::match(Atom a)
