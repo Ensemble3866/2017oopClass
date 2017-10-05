@@ -27,7 +27,7 @@ bool Number::match(Atom a)
     return false;
 }
 
-bool Number::match(Variable var)
+bool Number::match(Variable & var)
 {
     return var.match(*this);
 }

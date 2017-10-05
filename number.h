@@ -14,7 +14,7 @@ class Number
         string value();
         bool match(Number num);
         bool match(Atom a);
-        bool match(Variable var);
+        bool match(Variable & var);
 
     private:
         string _symbol;

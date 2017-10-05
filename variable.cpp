@@ -16,7 +16,7 @@ string Variable::symbol()
     return _symbol;
 }
 
-bool Variable::match(Number num)
+bool Variable::match(Number & num)
 {
     bool ret = _assignable;
     if(_assignable)
@@ -28,7 +28,7 @@ bool Variable::match(Number num)
     return ret; 
 }
 
-bool Variable::match(Atom atom)
+bool Variable::match(Atom & atom)
 {
     bool ret = _assignable;
     if(_assignable)
