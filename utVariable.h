@@ -50,8 +50,8 @@ TEST (Variable, varY_to_varX_and_num1_to_varY) {
   Variable X("X");
   Variable Y("Y");
   Number num(1);
-  X.match(Y);
-  Y.match(num);
+  ASSERT_TRUE(X.match(Y));
+  ASSERT_TRUE(Y.match(num));
   ASSERT_EQ("1", X.value());
 }
 
@@ -60,8 +60,8 @@ TEST (Variable, varY_to_varX_and_num1_to_varY) {
 TEST (Variable, varX_match_varX_and_num1_to_varX) {
   Variable X("X");
   Number num(1);
-  X.match(X);
-  X.match(num);
+  ASSERT_TRUE(X.match(X));
+  ASSERT_TRUE(X.match(num));
   ASSERT_EQ("1", X.value());
 }
 
@@ -71,8 +71,8 @@ TEST (Variable, num1_to_varY_and_varX_match_varY) {
   Variable X("X");
   Variable Y("Y");
   Number num(1);
-  X.match(X);
-  X.match(num);
+  ASSERT_TRUE(X.match(X));
+  ASSERT_TRUE(X.match(num));
   ASSERT_EQ("1", X.value());
 }
 
@@ -83,9 +83,9 @@ TEST (Variable, num1_to_varZ_to_varY_to_varX) {
   Variable Y("Y");
   Variable Z("Z");
   Number num(1);
-  X.match(Y);
-  Y.match(Z);
-  Z.match(num);
+  ASSERT_TRUE(X.match(Y));
+  ASSERT_TRUE(Y.match(Z));
+  ASSERT_TRUE(Z.match(num));
   ASSERT_EQ("1", X.value());
   ASSERT_EQ("1", Y.value());
   ASSERT_EQ("1", Z.value());
@@ -98,9 +98,9 @@ TEST (Variable, num1_to_varZ_to_varX_and_varY_to_varX) {
   Variable Y("Y");
   Variable Z("Z");
   Number num(1);
-  X.match(Y);
-  X.match(Z);
-  Z.match(num);
+  ASSERT_TRUE(X.match(Y));
+  ASSERT_TRUE(X.match(Z));
+  ASSERT_TRUE(Z.match(num));
   ASSERT_EQ("1", X.value());
   ASSERT_EQ("1", Y.value());
   ASSERT_EQ("1", Z.value());
@@ -116,7 +116,7 @@ TEST (Variable, Struct1) {
   Variable Y("Y");
   std::vector<Term *> v = {&X};
   Struct s(Atom("s"), v);
-  Y.match(s);
+  ASSERT_TRUE(Y.match(s));
   ASSERT_EQ("Y", Y.symbol());
   ASSERT_EQ("s(X)", Y.value());
 }
@@ -134,7 +134,7 @@ TEST (Variable, Struct2) {
   X.match(teddy);
   std::vector<Term *> v = {&X};
   Struct s(Atom("s"), v);
-  Y.match(s);
+  ASSERT_TRUE(Y.match(s));
   ASSERT_EQ("Y", Y.symbol());
   ASSERT_EQ("s(teddy)", Y.value());
 }
