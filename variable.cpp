@@ -38,6 +38,7 @@ bool Variable::match(Term & term)
 
 bool Variable::match(Variable & var)
 {
+    bool ret = false;
     vector<Variable *>::iterator it; 
     it = find(_vars.begin(), _vars.end(), &var);
 
@@ -45,5 +46,7 @@ bool Variable::match(Variable & var)
     {
         _vars.push_back(&var);
         var.match(*this);
+        ret = true;
     }
+    return ret;
 }
