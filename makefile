@@ -1,60 +1,32 @@
-all: hw2
+all: hw3
 
-hw2: mainTerm.o number.o variable.o atom.o
+hw3: mainTest.o number.o variable.o constant.o atom.o term.o struct.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw2 mainTerm.o number.o variable.o atom.o -lgtest
+	g++ -o hw3 mainTest.o number.o atom.o constant.o variable.o term.o struct.o -lgtest
 else
-	g++ -o hw2 mainTerm.o number.o variable.o atom.o -lgtest -lpthread
+	g++ -o hw3 mainTest.o number.o atom.o constant.o variable.o term.o struct.o -lgtest -lpthread
 endif
 
-mainTerm.o: mainTerm.cpp utTerm.h number.h variable.h atom.h
-	g++ -std=gnu++0x -c mainTerm.cpp
-
-number.o: number.cpp number.h
-	g++ -std=gnu++0x -c number.cpp
+mainTest.o: mainTest.cpp number.h atom.h constant.h variable.h term.h struct.h utTerm.h utVariable.h utStruct.h 
+	g++ -std=gnu++0x -c mainTest.cpp
+struct.o: struct.cpp struct.h
+	g++ -std=gnu++0x -c struct.cpp
+term.o: term.cpp term.h
+	g++ -std=gnu++0x -c term.cpp
 variable.o: variable.cpp variable.h
 	g++ -std=gnu++0x -c variable.cpp
+constant.o: constant.cpp constant.h
+	g++ -std=gnu++0x -c constant.cpp
+number.o: number.cpp number.h
+	g++ -std=gnu++0x -c number.cpp
 atom.o: atom.cpp atom.h
 	g++ -std=gnu++0x -c atom.cpp
-
-#utAtom: mainAtom.o
-#	g++ -o utAtom mainAtom.o -lgtest -lpthread
-#mainAtom.o: mainAtom.cpp utAtom.h atom.h
-#	g++ -std=c++11 -c mainAtom.cpp
-
-#utVariable: mainVariable.o
-#	g++ -o utVariable mainVariable.o -lgtest -lpthread
-#mainVariable.o: mainVariable.cpp utVariable.h variable.h
-#	g++ -std=c++11 -c mainVariable.cpp
-
-#exp: mainExp.o
-#	g++ -o exp mainExp.o -lgtest -lpthread
-#mainExp.o: mainExp.cpp exp.h global.h
-#	g++ -std=c++11 -c mainExp.cpp
-
-#utScannerParser: mainScannerParser.o term.o struct.o var.o list.o
-#	g++ -o utScannerParser mainScannerParser.o term.o var.o struct.o list.o -lgtest -lpthread
-#mainScannerParser.o: mainScannerParser.cpp utScanner.h utParser.h scanner.h parser.h term.h var.h struct.h list.h global.h node.h
-#		g++ -std=c++11 -c mainScannerParser.cpp
-
-#utTerm: mainTerm.o term.o struct.o var.o list.o
-#	g++ -o utTerm mainTerm.o term.o var.o struct.o list.o -lgtest -lpthread
-#mainTerm.o: mainTerm.cpp utTerm.h term.h var.h utStruct.h struct.h list.h utList.h
-#	g++ -std=c++11 -c mainTerm.cpp
-#term.o: term.h term.cpp
-#	g++ -std=c++11 -c term.cpp
-#struct.o: struct.h struct.cpp
-#	g++ -std=c++11 -c struct.cpp
-#var.o: var.h var.cpp
-#g++ -std=c++11 -c var.cpp
-#list.o: list.h list.cpp term.h var.h
-#	g++ -std=c++11 -c list.cpp
 
 clean:	
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
-	rm -f *.o hw2
+	rm -f *.o hw3
 endif
 stat:
 	wc *.h *.cpp

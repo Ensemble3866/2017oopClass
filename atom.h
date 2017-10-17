@@ -2,20 +2,12 @@
 #define ATOM_H
 
 #include <string>
+#include "constant.h"
 using std::string;
 
-class Number;
-class Variable;
-
-class Atom {
+class Atom : public Constant {
     public:
         Atom (string s);
-        string symbol();
-        bool match(Atom a);
-        bool match(Number num);
-        bool match(Variable & var);
-    private:
-      string _symbol;
 };
 
 #endif

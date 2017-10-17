@@ -2,23 +2,24 @@
 #define VARIABLE_H
 
 #include <string>
+#include <vector>
+#include "term.h"
 using std::string;
+using std::vector;
 
-class Number;
-class Atom;
-
-class Variable
+class Variable : public Term
 {
   public:
     Variable(string s);
-    string value();
-    string symbol();
-    bool match(Number & num);
-    bool match(Atom & atom);
+    string value() const;
+    string symbol() const;
+    bool match(Term & term);
+    bool match(Variable & var);
 
 private:
     string _value;
     string _symbol;
+    vector<Variable *> _vars;
     bool _assignable = true;
 };
 

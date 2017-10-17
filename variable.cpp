@@ -1,41 +1,49 @@
 #include <string>
+#include <algorithm>
 #include "variable.h"
-#include "number.h"
-#include "atom.h"
 using std::string;
+using std::vector;
 
-Variable::Variable(string s):_symbol(s), _value("") {}
+Variable::Variable(string s)
+{
+    _symbol = s;
+    _value = s;
+}
 
-string Variable::value()
+string Variable::value() const
 { 
     return _value;
 }
 
-string Variable::symbol()
+string Variable::symbol() const
 { 
     return _symbol;
 }
 
-bool Variable::match(Number & num)
+bool Variable::match(Term & term)
 {
     bool ret = _assignable;
     if(_assignable)
     {
-        _value = num.symbol();
+        _value = term.value();
         _assignable = false;
+        for(int i = 0; i < _vars.size(); i++)
+        {
+            _vars[i]->match(term);
+        }
     }
-    if(_value == num.symbol()) ret = true;
-    return ret; 
+    if(_value == term.symbol()) ret = true;
+    return ret;
 }
 
-bool Variable::match(Atom & atom)
+bool Variable::match(Variable & var)
 {
-    bool ret = _assignable;
-    if(_assignable)
+    vector<Variable *>::iterator it; 
+    it = find(_vars.begin(), _vars.end(), &var);
+
+    if (it == _vars.end())
     {
-        _value = atom.symbol();
-        _assignable = false;
+        _vars.push_back(&var);
+        var.match(*this);
     }
-    if(_value == atom.symbol()) ret = true;
-    return ret;
 }

@@ -2,23 +2,14 @@
 #define NUMBER_H
 
 #include <string>
-#include "atom.h"
-#include "variable.h"
+#include "constant.h"
 using std::string;
 
-class Number
+class Number : public Constant
 {
     public:
         Number (int n);
-        string symbol();
-        string value();
-        bool match(Number num);
-        bool match(Atom a);
-        bool match(Variable & var);
-
-    private:
-        string _symbol;
-        int _value;
+        Number (double n);
 };
 
 #endif

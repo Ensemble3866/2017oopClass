@@ -1,33 +1,18 @@
 #include <string>
+#include <sstream>
 #include "number.h"
 using std::string;
 
-Number::Number(int n) : _value(n)
+Number::Number(int n)
 {
-    _symbol = std::to_string(_value);
+    std::stringstream ss;
+    ss << n;
+    _symbol = ss.str();
 }
 
-string Number::symbol()
+Number::Number(double n)
 {
-    return _symbol;
-}
-
-string Number::value()
-{
-    return std::to_string(_value);
-}
-
-bool Number::match(Number num)
-{
-    return _value == std::stoi(num.value());
-}
-
-bool Number::match(Atom a)
-{
-    return false;
-}
-
-bool Number::match(Variable & var)
-{
-    return var.match(*this);
+    std::stringstream ss;
+    ss << n;
+    _symbol = ss.str();
 }
