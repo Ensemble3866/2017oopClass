@@ -46,7 +46,21 @@ bool Variable::match(Variable & var)
     {
         _vars.push_back(&var);
         _value = var.symbol();
-        var.match(*this);
+        var.matched(*this);
+        ret = true;
+    }
+    return ret;
+}
+
+bool Variable::matched(Variable & var)
+{
+    bool ret = false;
+    vector<Variable *>::iterator it; 
+    it = find(_vars.begin(), _vars.end(), &var);
+
+    if (it == _vars.end())
+    {
+        _vars.push_back(&var);
         ret = true;
     }
     return ret;

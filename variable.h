@@ -15,6 +15,7 @@ class Variable : public Term
     string symbol() const;
     bool match(Term & term);
     bool match(Variable & var);
+    bool matched(Variable & var);
 
 private:
     string _value;
