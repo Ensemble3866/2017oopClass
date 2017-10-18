@@ -14,14 +14,11 @@ class Variable : public Term
     string value() const;
     string symbol() const;
     bool match(Term & term);
-    bool match(Variable & var);
-    bool matched(Variable & var);
-    bool isMatched();
 
 private:
-    string _value;
+    Term * _value;
     string _symbol;
-    vector<Variable *> _vars;
+    bool _valueIsEmptyVariable = false;
     bool _assignable = true;
 };
 

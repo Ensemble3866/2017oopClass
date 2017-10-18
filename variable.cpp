@@ -1,5 +1,7 @@
 #include <string>
 #include <algorithm>
+#include <iostream>
+using namespace std;
 #include "variable.h"
 using std::string;
 using std::vector;
@@ -7,12 +9,13 @@ using std::vector;
 Variable::Variable(string s)
 {
     _symbol = s;
-    _value = s;
+    _value = this;
 }
 
 string Variable::value() const
 { 
-    return _value;
+    if(_assignable) return _value->symbol();
+    else return _value->value();
 }
 
 string Variable::symbol() const
@@ -23,55 +26,23 @@ string Variable::symbol() const
 bool Variable::match(Term & term)
 {
     bool ret = _assignable;
-    if(_assignable)
+
+    if(_value->symbol() == term.symbol()) ret = true;
+    else if(_assignable)
     {
-        _value = term.value();
+        _value = &term;
         _assignable = false;
-        for(int i = 0; i < _vars.size(); i++)
+        if(dynamic_cast<Variable *>(&term) && term.value() == term.symbol())
         {
-            _vars[i]->match(term);
-        }
+            _valueIsEmptyVariable = true;
+        } 
     }
-    if(_value == term.symbol()) ret = true;
-    return ret;
-}
-
-bool Variable::match(Variable & var)
-{
-    bool ret = false;
-    vector<Variable *>::iterator it; 
-    it = find(_vars.begin(), _vars.end(), &var);
-
-    if (it == _vars.end())
+    else if(_valueIsEmptyVariable)
     {
-        _vars.push_back(&var);
-
-        if(var.isMatched())
-            _value = var.value();
-        else
-            _value = var.symbol();
-            
-        var.matched(*this);
-        ret = true;
+        ret = _value->match(term);
+        _valueIsEmptyVariable = false;
     }
+    
+    
     return ret;
-}
-
-bool Variable::matched(Variable & var)
-{
-    bool ret = false;
-    vector<Variable *>::iterator it; 
-    it = find(_vars.begin(), _vars.end(), &var);
-
-    if (it == _vars.end())
-    {
-        _vars.push_back(&var);
-        ret = true;
-    }
-    return ret;
-}
-
-bool Variable::isMatched()
-{
-    return !_assignable;
 }
