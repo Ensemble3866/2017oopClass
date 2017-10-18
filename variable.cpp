@@ -45,6 +45,7 @@ bool Variable::match(Variable & var)
     if (it == _vars.end())
     {
         _vars.push_back(&var);
+        _value = var.symbol();
         var.match(*this);
         ret = true;
     }
