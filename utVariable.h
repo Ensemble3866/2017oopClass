@@ -141,4 +141,22 @@ TEST (Variable, Struct2) {
   ASSERT_EQ("s(teddy)", Y.value());
 }
 
+TEST (Variable, varY_to_varX_and_varW_to_varZ_and_varZ_to_varY_and_num1_to_varY) {
+  Variable X("X");
+  Variable Y("Y");
+  Variable Z("Z");
+  Variable W("W");
+  Variable V("V");
+  Number num(1);
+  ASSERT_TRUE(Y.match(X));
+  ASSERT_TRUE(Y.match(Z));
+  ASSERT_TRUE(Y.match(W));
+  ASSERT_TRUE(Y.match(V));
+  ASSERT_TRUE(Y.match(num));
+  ASSERT_EQ("1", X.value());
+  ASSERT_EQ("1", Y.value());
+  ASSERT_EQ("1", Z.value());
+  ASSERT_EQ("1", W.value());
+}
+
 #endif

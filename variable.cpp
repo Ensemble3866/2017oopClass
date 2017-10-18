@@ -40,9 +40,19 @@ bool Variable::match(Term & term)
     else if(_valueIsEmptyVariable)
     {
         ret = _value->match(term);
-        _valueIsEmptyVariable = false;
+        if(term.value() == term.symbol())
+            _valueIsEmptyVariable = true;
+        else
+            _valueIsEmptyVariable = false;
     }
-    
-    
     return ret;
 }
+/*
+bool Variable::isMatched()
+{
+    if(!_assignable)
+        return !_assignable;
+    else
+        return _value.isMatched()
+}
+*/
