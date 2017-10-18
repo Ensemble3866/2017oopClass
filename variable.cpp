@@ -32,7 +32,8 @@ bool Variable::match(Term & term)
     {
         _value = &term;
         _assignable = false;
-        if(dynamic_cast<Variable *>(&term) && term.value() == term.symbol())
+        Variable* var = dynamic_cast<Variable *>(&term);
+        if(var && (term.value() == term.symbol() || var->isValueEmptyVariable()))
         {
             _valueIsEmptyVariable = true;
         } 
@@ -47,12 +48,8 @@ bool Variable::match(Term & term)
     }
     return ret;
 }
-/*
-bool Variable::isMatched()
+
+bool Variable::isValueEmptyVariable()
 {
-    if(!_assignable)
-        return !_assignable;
-    else
-        return _value.isMatched()
+    return _valueIsEmptyVariable;
 }
-*/

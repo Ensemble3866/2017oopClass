@@ -14,6 +14,7 @@ class Variable : public Term
     string value() const;
     string symbol() const;
     bool match(Term & term);
+    bool isValueEmptyVariable();
 
 private:
     Term * _value;
