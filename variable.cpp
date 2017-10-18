@@ -45,7 +45,12 @@ bool Variable::match(Variable & var)
     if (it == _vars.end())
     {
         _vars.push_back(&var);
-        _value = var.symbol();
+
+        if(var.isMatched())
+            _value = var.value();
+        else
+            _value = var.symbol();
+            
         var.matched(*this);
         ret = true;
     }
@@ -64,4 +69,9 @@ bool Variable::matched(Variable & var)
         ret = true;
     }
     return ret;
+}
+
+bool Variable::isMatched()
+{
+    return !_assignable;
 }

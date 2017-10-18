@@ -73,8 +73,8 @@ TEST (Variable, num1_to_varY_and_varX_match_varY) {
   Variable X("X");
   Variable Y("Y");
   Number num(1);
-  ASSERT_TRUE(X.match(X));
-  ASSERT_TRUE(X.match(num));
+  ASSERT_TRUE(Y.match(num));
+  ASSERT_TRUE(X.match(Y));
   ASSERT_EQ("1", X.value());
 }
 

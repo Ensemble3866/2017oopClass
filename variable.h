@@ -16,6 +16,7 @@ class Variable : public Term
     bool match(Term & term);
     bool match(Variable & var);
     bool matched(Variable & var);
+    bool isMatched();
 
 private:
     string _value;
