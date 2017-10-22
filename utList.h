@@ -24,10 +24,11 @@ TEST (List, constructor) {
 // Then #symbol() of the list should return "[8128]"
 TEST(List, Numbers) {
   Number _8128(8128);
-  vector<Term *> terms = {&_8128};
+  Number _496(496);
+  vector<Term *> terms = {&_8128, &_496};
   List list(terms);
 
-  ASSERT_EQ("[8128]", list.symbol());
+  ASSERT_EQ("[8128, 496]", list.symbol());
 }
 
 // Given there are two atoms: "terence_tao", "alan_mathison_turing"
