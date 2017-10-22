@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "term.h"
+#include "list.h"
 using std::string;
 using std::vector;
 
@@ -14,6 +15,7 @@ class Variable : public Term
     string value() const;
     string symbol() const;
     bool match(Term & term);
+    bool match(List & list);
     bool isValueEmptyVariable();
 
 private:

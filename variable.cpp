@@ -1,7 +1,5 @@
 #include <string>
 #include <algorithm>
-#include <iostream>
-using namespace std;
 #include "variable.h"
 using std::string;
 using std::vector;
@@ -47,6 +45,19 @@ bool Variable::match(Term & term)
             _valueIsEmptyVariable = false;
     }
     return ret;
+}
+
+bool Variable::match(List & list)
+{
+    bool ret = true;
+    if(!list.match(*this)) ret = false;
+    else
+    {
+        _value = &list;
+        _assignable = false;
+    }
+    return ret;
+
 }
 
 bool Variable::isValueEmptyVariable()

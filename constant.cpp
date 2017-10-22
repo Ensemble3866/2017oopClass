@@ -12,12 +12,8 @@ string Constant::value() const
     return symbol();
 }
 
-bool Constant::match(Constant & constant)
-{
-    return symbol() == constant.symbol();
-}
-
 bool Constant::match(Term & term)
 {
-    return term.match(*this);
+    if(dynamic_cast<Constant *>(&term))  return symbol() == term.symbol();
+    else return term.match(*this);
 }

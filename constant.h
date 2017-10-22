@@ -10,7 +10,6 @@ class Constant : public Term
     public:
         string symbol() const;
         string value() const;
-        bool match(Constant & constant);
         bool match(Term & term);
     protected:
         string _symbol;
