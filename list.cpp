@@ -77,6 +77,7 @@ List * List::tail() const
     {
         string message = "Accessing head in an empty list";
         throw message;
+        
     }
     vector<Term *> terms = _elements;
     terms.erase(terms.begin());
