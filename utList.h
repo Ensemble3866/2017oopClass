@@ -92,7 +92,7 @@ TEST(List, matchToStructShouldFail) {
   Struct s(Atom("s"), v);
   List list(terms);
 
-  ASSERT_FALSE(s.match(list));
+  ASSERT_FALSE(list.match(s));
 }
 
 // ?- Y = [496, X, terence_tao].

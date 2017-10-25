@@ -2,6 +2,7 @@
 #include "list.h"
 #include "constant.h"
 #include "variable.h"
+#include "struct.h"
 using std::string;
 
 string List::symbol() const
@@ -32,7 +33,7 @@ bool List::match(Term & term)
 {
     bool ret = true;
 
-    if(dynamic_cast<Constant *>(&term))
+    if(dynamic_cast<Constant *>(&term) || dynamic_cast<Struct *>(&term))
         ret = false;
     else if(dynamic_cast<Variable *>(&term))
     {
@@ -77,7 +78,7 @@ List * List::tail() const
     {
         string message = "Accessing head in an empty list";
         throw message;
-        
+
     }
     vector<Term *> terms = _elements;
     terms.erase(terms.begin());
