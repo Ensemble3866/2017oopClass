@@ -240,8 +240,8 @@ TEST (List, emptyExecptionOfHead) {
   try {
     l.head();
   }
-  catch(const string message) {
-    EXPECT_EQ(string("Accessing head in an empty list"), message);
+  catch(string msg) {
+    EXPECT_EQ(string("Accessing head in an empty list"), msg);
   }
 }
 
@@ -254,8 +254,8 @@ TEST (List, emptyExecptionOfTail) {
   try {
     l.tail();
   }
-  catch(const string message) {
-    EXPECT_EQ(string("Accessing head in an empty list"), message);
+  catch(string msg) {
+    EXPECT_EQ(string("Accessing tail in an empty list"), msg);
   }
 }
 

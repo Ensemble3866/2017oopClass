@@ -65,8 +65,7 @@ Term * List::head() const
 {
     if(_elements.size() < 1)
     {
-        string message = "Accessing head in an empty list";
-        throw message;
+        throw string("Accessing head in an empty list");
     }
     return _elements[0];
 }
@@ -75,9 +74,7 @@ List * List::tail() const
 {
     if(_elements.size() < 1)
     {
-        string message = "Accessing head in an empty list";
-        throw message;
-
+        throw string("Accessing tail in an empty list");
     }
     vector<Term *> terms = _elements;
     terms.erase(terms.begin());
