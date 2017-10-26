@@ -1,8 +1,7 @@
 #include <string>
+#include <typeinfo>
 #include "list.h"
-#include "constant.h"
 #include "variable.h"
-#include "struct.h"
 using std::string;
 
 string List::symbol() const
@@ -31,35 +30,35 @@ string List::value() const
 
 bool List::match(Term & term)
 {
-    bool ret = true;
-
-    if(dynamic_cast<Constant *>(&term) || dynamic_cast<Struct *>(&term))
-        ret = false;
-    else if(dynamic_cast<Variable *>(&term))
+    if (typeid(term) ==  typeid(Variable))
     {
+        
         for(int i = 0; i < _elements.size(); i++)
         {
             if(term.symbol() == _elements[i]->symbol())
-                ret = false;
+                return false;
         }
+        return term.match(*this);
     }
-    else if(dynamic_cast<List *>(&term))
+    else if(typeid(term) == typeid(List))
     {
         List * l = dynamic_cast<List *>(&term);
-        if(_elements.size() != l->length()) ret = false;
+        if(_elements.size() != l->length()) return false;
         else
         {
             for(int i = 0; i < _elements.size(); i++)
             {
                 if(!_elements[i]->match(*(l->element(i))))
                 {
-                    ret = false;
+                    return false;
                     break;
                 }
             }
+            return true;
         }
     }
-    return ret;
+    else
+        return symbol() == term.symbol();
 }
 
 Term * List::head() const

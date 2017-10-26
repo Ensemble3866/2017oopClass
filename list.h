@@ -1,9 +1,8 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include "term.h"
-
 #include <vector>
+#include "atom.h"
 using std::vector;
 
 class List : public Term {

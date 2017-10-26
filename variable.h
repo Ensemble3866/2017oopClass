@@ -2,27 +2,29 @@
 #define VARIABLE_H
 
 #include <string>
-#include <vector>
-#include "term.h"
-#include "list.h"
+#include "atom.h"
 using std::string;
-using std::vector;
 
-class Variable : public Term
-{
-  public:
-    Variable(string s);
-    string value() const;
-    string symbol() const;
-    bool match(Term & term);
-    bool match(List & list);
-    bool isValueEmptyVariable();
-
+class Variable : public Term {
+public:
+  Variable(string s):Term(s), _inst(0){}
+  string value() const {
+    if (_inst)
+      return _inst->value();
+    else
+      return Term::value();
+  }
+  bool match( Term & term ){
+    if (this == &term)
+      return true;
+    if(!_inst){
+      _inst = &term ;
+      return true;
+    }
+    return _inst->match(term);
+  }
 private:
-    Term * _value;
-    string _symbol;
-    bool _valueIsEmptyVariable = false;
-    bool _assignable = true;
+  Term * _inst;
 };
 
 #endif

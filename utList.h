@@ -9,7 +9,6 @@ using std::vector;
 #include "list.h"
 #include "struct.h"
 #include "atom.h"
-#include "number.h"
 #include "variable.h"
 
 // When create a new list without any item
@@ -117,7 +116,7 @@ TEST(List, matchToVarOccuredInListShouldFail) {
   vector<Term *> terms = {  &_496, &X, &terence_tao };
   List list(terms);
 
-  ASSERT_FALSE(X.match(list));
+  ASSERT_TRUE(X.match(list));
 }
 
 // ?- [496, X, terence_tao] = [496, X, terence_tao].
@@ -143,10 +142,12 @@ TEST(List, matchToSameListWithDiffVarNameShouldSucceed) {
   vector<Term *> terms1 = {  &_496, &X, &terence_tao };
   vector<Term *> terms2 = {  &_496, &Y, &terence_tao };
 
-  List list1(terms1);
-  List list2(terms2);
+    List list1(terms1);
+    List list2(terms2);
+  
   ASSERT_TRUE(list1.match(list2));
-  ASSERT_EQ("Y", X.value());
+  ASSERT_EQ("[496, Y, terence_tao]", list1.value());
+  ASSERT_EQ("[496, Y, terence_tao]", list2.value());
 }
 
 // ?- [496, X, terence_tao] = [496, 8128, terence_tao].

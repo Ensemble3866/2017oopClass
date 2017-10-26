@@ -2,7 +2,6 @@
 #define UTTERM_H
 #include <iostream>
 #include <string>
-#include "number.h"
 #include "atom.h"
 #include "variable.h"
 

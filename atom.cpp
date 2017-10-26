@@ -1,8 +1,10 @@
-#include <string>
 #include "atom.h"
-using std::string;
+#include "variable.h"
+#include <typeinfo>
 
-Atom::Atom (string s)
-{
-    _symbol = s;
+bool Term::match(Term & a){
+  if (typeid(a) ==  typeid(Variable))
+    return a.match(*this);
+  else
+    return symbol() == a.symbol();
 }
