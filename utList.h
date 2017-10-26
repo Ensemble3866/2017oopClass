@@ -9,6 +9,7 @@ using std::vector;
 #include "list.h"
 #include "struct.h"
 #include "atom.h"
+#include "number.h"
 #include "variable.h"
 
 // When create a new list without any item

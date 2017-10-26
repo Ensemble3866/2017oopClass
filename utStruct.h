@@ -1,5 +1,6 @@
 #include <vector>
 #include "atom.h"
+#include "number.h"
 #include "variable.h"
 #include "struct.h"
 

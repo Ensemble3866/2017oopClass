@@ -9,7 +9,7 @@ endif
 
 atom.o: atom.cpp atom.h variable.h
 	g++ -std=c++11 -c atom.cpp
-mainTest.o: mainTest.cpp atom.h variable.h struct.h list.h utTerm.h utVariable.h utStruct.h utList.h
+mainTest.o: mainTest.cpp atom.h number.h variable.h struct.h list.h term.h utTerm.h utVariable.h utStruct.h utList.h
 	g++ -std=gnu++0x -c mainTest.cpp
 list.o: list.cpp list.h
 	g++ -std=gnu++0x -c list.cpp
