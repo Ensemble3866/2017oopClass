@@ -48,7 +48,7 @@ bool List::match(Term & term)
         }
     }
     else
-        return symbol() == term.symbol();
+        return Term::match(term);
 }
 
 Term * List::head() const

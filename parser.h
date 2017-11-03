@@ -10,9 +10,6 @@ using std::string;
 #include "scanner.h"
 #include "struct.h"
 
-#include <iostream>
-using namespace std;
-
 class Parser{
 public:
   Parser(Scanner scanner) : _scanner(scanner){}

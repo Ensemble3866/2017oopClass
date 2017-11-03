@@ -105,7 +105,8 @@ TEST(List, matchToVarShouldSucceed) {
   vector<Term *> terms = { &_496, &X, &terence_tao };
   List list(terms);
 
-  ASSERT_TRUE(Y.match(list));
+  //ASSERT_TRUE(Y.match(list));
+  ASSERT_TRUE(list.match(Y));
 }
 
 // ?- X = [496, X, terence_tao].
