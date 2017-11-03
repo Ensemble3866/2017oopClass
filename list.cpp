@@ -30,17 +30,7 @@ string List::value() const
 
 bool List::match(Term & term)
 {
-    if (typeid(term) ==  typeid(Variable))
-    {
-        
-        for(int i = 0; i < _elements.size(); i++)
-        {
-            if(term.symbol() == _elements[i]->symbol())
-                return false;
-        }
-        return term.match(*this);
-    }
-    else if(typeid(term) == typeid(List))
+    if(typeid(term) == typeid(List))
     {
         List * l = dynamic_cast<List *>(&term);
         if(_elements.size() != l->length()) return false;

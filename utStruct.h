@@ -73,6 +73,14 @@ TEST(Struct, match5)
   EXPECT_FALSE(hobby.match(tom));
 }
 
+TEST(Struct, Empty)
+{
+  std::vector<Term *> v;
+  Struct s(Atom("s"), v);
+  ASSERT_EQ("s()",s.symbol());
+  ASSERT_EQ("s()",s.value());
+}
+
 // When Struct s contains a Variable X
 // Then #symbol() should return "s(X)"
 // and #value() should also return "s(X)"
