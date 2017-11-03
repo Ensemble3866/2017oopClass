@@ -33,6 +33,8 @@ public:
           vector<Term*> terms = getArgs();
           if(_currentToken == ')')
             return new Struct(*atom, terms);
+          else if(_currentToken == ']')
+            throw string("unexpected token");
         }
         else
           return atom;
@@ -50,22 +52,20 @@ public:
   vector<Term*> getArgs()
   {
     vector<Term*> args;
+    //Process for empty List
     if((_currentToken = _scanner.currentChar()) == ']')
     {
       while((_currentToken = _scanner.nextToken()) == ',') 
-      {
         args.push_back(createTerm());
-      }
       return args;
     }
+    //Nomal situation
     Term* term = createTerm();
     if(term)
     {
       args.push_back(term);
       while((_currentToken = _scanner.nextToken()) == ',') 
-      {
         args.push_back(createTerm());
-      }
     }
     return args;
   }
