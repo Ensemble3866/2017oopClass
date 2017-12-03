@@ -7,6 +7,9 @@
 
 using std::string;
 
+template <class T> 
+class Iterator;
+
 class Struct: public Term {
 public:
   Struct(Atom name, std::vector<Term *> args): _name(name) {
@@ -40,7 +43,7 @@ public:
     return ret;
   }
   int arity() const {return _args.size();}
-  Iterator * createIterator();
+  Iterator<Struct *> * createIterator();
 private:
   Atom _name;
   std::vector<Term *> _args;

@@ -8,7 +8,9 @@
 #include <iostream>
 using std::vector;
 
-class Variable ;
+class Variable;
+template <class T> 
+class Iterator;
 
 class List : public Term {
 public:
@@ -24,6 +26,7 @@ public:
     return _elements[index];
   }
   int arity() const {return _elements.size();}
+  Iterator<List *> * createIterator();
 private:
   vector<Term *> _elements;
 };

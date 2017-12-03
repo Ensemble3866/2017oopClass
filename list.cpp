@@ -1,9 +1,10 @@
-#include "atom.h"
-#include "variable.h"
 #include <typeinfo>
 #include <iostream>
 #include <string>
 #include "list.h"
+#include "atom.h"
+#include "variable.h"
+#include "iterator.h"
 using std::vector;
 
 string List::symbol() const{
@@ -84,4 +85,9 @@ List * List::tail() const {
     _clone_elements.assign(_elements.begin()+1, _elements.end());
     List *ls= new List(_clone_elements) ;
     return ls;
+}
+
+Iterator<List *> * List::createIterator()
+{
+  return new Iterator<List *>(this);
 }
