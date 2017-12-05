@@ -37,6 +37,8 @@
         "xutility": "cpp",
         "algorithm": "cpp",
         "sstream": "cpp",
-        "iterator": "cpp"
+        "iterator": "cpp",
+        "stack": "cpp",
+        "deque": "cpp"
     }
 }

@@ -1,7 +1,12 @@
 #include "struct.h"
 #include "iterator.h"
 
-Iterator<Struct *> * Struct::createIterator()
+Iterator<Term *> * Struct::createDFSIterator()
 {
-  return new Iterator<Struct *>(this);
+  return new DFSIterator<Term *>(this);
+}
+
+Iterator<Term *> * Struct::createBFSIterator()
+{
+  return new BFSIterator<Term *>(this);
 }

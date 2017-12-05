@@ -87,7 +87,10 @@ List * List::tail() const {
     return ls;
 }
 
-Iterator<List *> * List::createIterator()
-{
-  return new Iterator<List *>(this);
+Iterator<Term *> * List::createDFSIterator(){
+     return new DFSIterator<Term *>(this);
+}
+
+Iterator<Term *> * List::createBFSIterator(){
+     return new BFSIterator<Term *>(this);
 }

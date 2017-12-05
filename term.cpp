@@ -11,5 +11,5 @@ bool Term::match(Term & a){
 }
 
 Iterator<Term *> * Term::createIterator(){
-  return new Iterator<Term *>(this);
+  return new NullIterator<Term *>();
 }
