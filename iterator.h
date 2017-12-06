@@ -82,7 +82,7 @@ private:
 
     vector<Term *> GetStructElementsByDFS(Struct * s){
       vector<Term *> result;
-      result.push_back(&s->name());
+      result.push_back(new Atom(s->symbol()));
       for(int i = 0; i < s->arity(); i++)
       {
         if(dynamic_cast<Struct *>(s->args(i))){
@@ -104,7 +104,7 @@ private:
 
      vector<Term *> GetListElementsByDFS(List * t){
       vector<Term *> result;
-      result.push_back(new Atom("[]"));
+      result.push_back(new Atom(t->symbol()));
       for(int i = 0; i < t->arity(); i++)
       {
         if(dynamic_cast<List *>(t->args(i))){
@@ -158,11 +158,11 @@ private:
           if(dynamic_cast<Struct *>(s->args(i))){
             Struct * sc = dynamic_cast<Struct *>(s->args(i));
             bfsQueue.push_back(s->args(i));
-            _bfsIterator.push_back(&sc->name());
+            _bfsIterator.push_back(new Atom(sc->symbol()));
           }
           else if(dynamic_cast<List *>(s->args(i))){
              bfsQueue.push_back(s->args(i));
-             _bfsIterator.push_back(new Atom("[]"));
+             _bfsIterator.push_back(new Atom(s->args(i)->symbol()));
           }
           else _bfsIterator.push_back(s->args(i));
         }
@@ -173,11 +173,11 @@ private:
           if(dynamic_cast<Struct *>(l->args(i))){
             Struct * sc = dynamic_cast<Struct *>(l->args(i));
             bfsQueue.push_back(l->args(i));
-            _bfsIterator.push_back(&sc->name());
+            _bfsIterator.push_back(new Atom(sc->symbol()));
           }
           else if(dynamic_cast<List *>(l->args(i))){
              bfsQueue.push_back(l->args(i));
-             _bfsIterator.push_back(new Atom("[]"));
+             _bfsIterator.push_back(new Atom(l->args(i)->symbol()));
           }
           else _bfsIterator.push_back(l->args(i));
         }
@@ -189,11 +189,11 @@ private:
             if(dynamic_cast<Struct *>(sc->args(i))){
               Struct * scc = dynamic_cast<Struct *>(sc->args(i));
               bfsQueue.push_back(sc->args(i));
-              _bfsIterator.push_back(&scc->name());
+              _bfsIterator.push_back(new Atom(scc->symbol()));
             }
             else if(dynamic_cast<List *>(sc->args(i))){
               bfsQueue.push_back(sc->args(i));
-              _bfsIterator.push_back(new Atom("[]"));
+              _bfsIterator.push_back(new Atom(sc->args(i)->symbol()));
             }
             else _bfsIterator.push_back(sc->args(i));
           }
@@ -204,11 +204,11 @@ private:
             if(dynamic_cast<Struct *>(lc->args(i))){
               Struct * sc = dynamic_cast<Struct *>(lc->args(i));
               bfsQueue.push_back(lc->args(i));
-              _bfsIterator.push_back(&sc->name());
+              _bfsIterator.push_back(new Atom(sc->symbol()));
             }
             else if(dynamic_cast<List *>(lc->args(i))){
               bfsQueue.push_back(lc->args(i));
-              _bfsIterator.push_back(new Atom("[]"));
+              _bfsIterator.push_back(new Atom(lc->args(i)->symbol()));
             }
             else _bfsIterator.push_back(lc->args(i));
           }

@@ -26,7 +26,7 @@ TEST(iterator, DFSIteratorTestTwoStruct) {
   ASSERT_EQ("1", itStruct->currentItem()->symbol());
   ASSERT_FALSE(itStruct->isDone());
   itStruct->next();
-  ASSERT_EQ("t", itStruct->currentItem()->symbol());
+  ASSERT_EQ("t(X, 2)", itStruct->currentItem()->symbol());
   ASSERT_FALSE(itStruct->isDone());
   itStruct->next();
   ASSERT_EQ("X", itStruct->currentItem()->symbol());
@@ -52,7 +52,7 @@ TEST(iterator, DFSIteratorTestStructHaveList) {
   ASSERT_EQ("1", itStruct->currentItem()->symbol());
   ASSERT_FALSE(itStruct->isDone());
   itStruct->next();
-  ASSERT_EQ("[]", itStruct->currentItem()->symbol());
+  ASSERT_EQ("[X, 2]", itStruct->currentItem()->symbol());
   ASSERT_FALSE(itStruct->isDone());
   itStruct->next();
   ASSERT_EQ("X", itStruct->currentItem()->symbol());
@@ -78,7 +78,7 @@ TEST(iterator, DFSIteratorTestTwoList) {
   ASSERT_EQ("1", itList->currentItem()->symbol());
   ASSERT_FALSE(itList->isDone());
   itList->next();
-  ASSERT_EQ("[]", itList->currentItem()->symbol());
+  ASSERT_EQ("[X, 2]", itList->currentItem()->symbol());
   ASSERT_FALSE(itList->isDone());
   itList->next();
   ASSERT_EQ("X", itList->currentItem()->symbol());
@@ -104,7 +104,7 @@ TEST(iterator, DFSIteratorTestListHaveStruct) {
   ASSERT_EQ("1", itList->currentItem()->symbol());
   ASSERT_FALSE(itList->isDone());
   itList->next();
-  ASSERT_EQ("t", itList->currentItem()->symbol());
+  ASSERT_EQ("t(X, 2)", itList->currentItem()->symbol());
   ASSERT_FALSE(itList->isDone());
   itList->next();
   ASSERT_EQ("X", itList->currentItem()->symbol());
@@ -132,7 +132,7 @@ TEST(iterator, BFSIteratorTestTwoStruct) {
   ASSERT_EQ("1", itStruct->currentItem()->symbol());
   ASSERT_FALSE(itStruct->isDone());
   itStruct->next();
-  ASSERT_EQ("t", itStruct->currentItem()->symbol());
+  ASSERT_EQ("t(X, 2)", itStruct->currentItem()->symbol());
   ASSERT_FALSE(itStruct->isDone());
   itStruct->next();
   ASSERT_EQ("Y", itStruct->currentItem()->symbol());
@@ -158,7 +158,7 @@ TEST(iterator, BFSIteratorTestStructHaveList) {
   ASSERT_EQ("1", itStruct->currentItem()->symbol());
   ASSERT_FALSE(itStruct->isDone());
   itStruct->next();
-  ASSERT_EQ("[]", itStruct->currentItem()->symbol());
+  ASSERT_EQ("[X, 2]", itStruct->currentItem()->symbol());
   ASSERT_FALSE(itStruct->isDone());
   itStruct->next();
   ASSERT_EQ("Y", itStruct->currentItem()->symbol());
@@ -184,7 +184,7 @@ TEST(iterator, BFSIteratorTestTwoList) {
   ASSERT_EQ("1", itList->currentItem()->symbol());
   ASSERT_FALSE(itList->isDone());
   itList->next();
-  ASSERT_EQ("[]", itList->currentItem()->symbol());
+  ASSERT_EQ("[X, 2]", itList->currentItem()->symbol());
   ASSERT_FALSE(itList->isDone());
   itList->next();
   ASSERT_EQ("Y", itList->currentItem()->symbol());
@@ -210,7 +210,7 @@ TEST(iterator, BFSIteratorTestListHaveStruct) {
   ASSERT_EQ("1", itList->currentItem()->symbol());
   ASSERT_FALSE(itList->isDone());
   itList->next();
-  ASSERT_EQ("t", itList->currentItem()->symbol());
+  ASSERT_EQ("t(X, 2)", itList->currentItem()->symbol());
   ASSERT_FALSE(itList->isDone());
   itList->next();
   ASSERT_EQ("Y", itList->currentItem()->symbol());
