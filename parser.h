@@ -9,34 +9,27 @@ using std::string;
 #include "scanner.h"
 #include "struct.h"
 #include "list.h"
-#include "node.h"
-
-#include "utParser.h"
+#include "exp.h"
+#include <stack>
 #include <iostream>
-using namespace std;
+
+using std::stack;
 
 class Parser{
 public:
-  Parser(Scanner scanner) : _scanner(scanner), _terms(){}
+  Parser(Scanner scanner) : _scanner(scanner), _terms(), _varTable(), _tableFlag(0) {}
 
   Term* createTerm(){
     int token = _scanner.nextToken();
     _currentToken = token;
     if(token == VAR){
-      if(_terms.size() > 0){
-        for(int i = findFlag; i < _terms.size(); i++){
-          if(_terms[i]->symbol() == symtable[_scanner.tokenValue()].first) return _terms[i];
-          else if(dynamic_cast<Struct*>(_terms[i]) != 0){
-            Struct * s = dynamic_cast<Struct*>(_terms[i]);
-            for(int j = 0; j < s->arity(); j++){
-              if(s->args(j)->symbol() == symtable[_scanner.tokenValue()].first){
-                return s->args(j);
-              }
-            }
-          }
-        }
+      //if(_tableFlag == 1) std::cout << "現在var:" << symtable[_scanner.tokenValue()].first << std::endl;
+      for(int i = _tableFlag; i < _varTable.size(); i++){
+        if(_varTable[i]->symbol() == symtable[_scanner.tokenValue()].first) return _varTable[i];
       }
-      return new Variable(symtable[_scanner.tokenValue()].first);
+      Variable * newVar = new Variable(symtable[_scanner.tokenValue()].first);
+      _varTable.push_back(newVar);
+      return newVar;
     }else if(token == NUMBER){
       return new Number(_scanner.tokenValue());
     }else if(token == ATOM || token == ATOMSC){
@@ -52,56 +45,6 @@ public:
     }
 
     return nullptr;
-  }
-
-  void matchings() {
-    findFlag = 0;
-    vector<Node *> nodes;
-    while(_currentToken != ATOMSC) {
-      _terms.push_back(createTerm());
-      Node * leftNode = new Node(TERM,  _terms[_terms.size()-1], 0, 0);
-      switch(_scanner.nextToken()){
-        case '=':
-          _terms.push_back(createTerm());
-          nodes.push_back(new Node(EQUALITY, 0, leftNode, new Node(TERM, _terms[_terms.size()-1], 0, 0)));
-          break;
-        case ',':
-          nodes.push_back(new Node(COMMA));
-          break;
-        case ';':
-          nodes.push_back(new Node(SEMICOLON));
-          break;
-        case ATOMSC:
-          _currentToken = ATOMSC;
-          break;
-      }
-      switch(_scanner.nextToken()) {
-        case ',' :
-          nodes.push_back(new Node(COMMA, 0, nodes[nodes.size()-1], 0));
-          _currentToken = ',';
-          break;
-        case ';' :
-          nodes.push_back(new Node(SEMICOLON, 0, nodes[nodes.size()-1], 0));
-          _currentToken = ';';
-          findFlag = _terms.size();
-          break;
-        case ATOMSC:
-          if(nodes.size() == 1) _root = nodes[0];
-          else{
-            nodes[nodes.size()-2]->right = nodes[nodes.size()-1];
-            for(int i = nodes.size()-2; i > 1; i-=2){
-              if(i - 2 > 0) nodes[i-2]->right = nodes[i];
-            }
-            _root = nodes[1];
-          }
-          _currentToken = ATOMSC;
-          break;
-      }
-    }
-  }
-
-  Node * expressionTree() {
-    return _root;
   }
 
   Term * structure() {
@@ -126,6 +69,9 @@ public:
     {
       vector<Term *> args(_terms.begin() + startIndexOfListArgs, _terms.end());
       _terms.erase(_terms.begin() + startIndexOfListArgs, _terms.end());
+      if(args.size()==0){
+        return new Atom("[]");
+      }
       return new List(args);
     } else {
       throw string("unexpected token");
@@ -136,11 +82,75 @@ public:
     return _terms;
   }
 
+  void buildExpression(){
+    disjunctionMatch();
+    restDisjunctionMatch();
+    if (createTerm() != nullptr || _currentToken != '.'){
+      throw string("Missing token '.'");
+    }
+  }
+
+  void restDisjunctionMatch() {
+    if (_scanner.currentChar() == ';') {
+      _tableFlag = _varTable.size();
+      createTerm();
+      if(_scanner.currentChar() == '.') throw string("Unexpected ';' before '.'");
+      disjunctionMatch();
+      Exp *right = _expStack.top();
+      _expStack.pop();
+      Exp *left = _expStack.top();
+      _expStack.pop();
+      _expStack.push(new DisjExp(left, right));
+      restDisjunctionMatch();
+    }
+  }
+
+  void disjunctionMatch() {
+    conjunctionMatch();
+    restConjunctionMatch();
+  }
+
+  void restConjunctionMatch() {
+    if (_scanner.currentChar() == ',') {
+      createTerm();
+      if(_scanner.currentChar() == '.') throw string("Unexpected ',' before '.'");
+      conjunctionMatch();
+      Exp *right = _expStack.top();
+      _expStack.pop();
+      Exp *left = _expStack.top();
+      _expStack.pop();
+      _expStack.push(new ConjExp(left, right));
+      restConjunctionMatch();
+    }
+  }
+
+  void conjunctionMatch() {
+    Term * left = createTerm();
+    if (createTerm() == nullptr && _currentToken == '=') {
+      Term * right = createTerm();
+      _expStack.push(new MatchExp(left, right));
+    }
+    else if(_currentToken == '.'){
+      throw string(left->symbol() + " does never get assignment");
+    }
+    else if(_currentToken == ';'){
+      if(_scanner.currentChar() == '.') throw string("Unexpected ';' before '.'");
+    }
+    else if(_currentToken == ','){
+      if(_scanner.currentChar() == '.') throw string("Unexpected ',' before '.'");
+    }
+  }
+
+  Exp* getExpressionTree(){
+    return _expStack.top();
+  }
+
 private:
   FRIEND_TEST(ParserTest, createArgs);
-  FRIEND_TEST(ParserTest, ListOfTermsEmpty);
-  FRIEND_TEST(ParserTest, listofTermsTwoNumber);
+  FRIEND_TEST(ParserTest,ListOfTermsEmpty);
+  FRIEND_TEST(ParserTest,listofTermsTwoNumber);
   FRIEND_TEST(ParserTest, createTerm_nestedStruct3);
+  FRIEND_TEST(ParserTest, createTerms);
 
   void createTerms() {
     Term* term = createTerm();
@@ -150,13 +160,16 @@ private:
       while((_currentToken = _scanner.nextToken()) == ',') {
         _terms.push_back(createTerm());
       }
+      if(_currentToken == ';')
+        throw string("Unbalanced operator");
     }
   }
 
   vector<Term *> _terms;
+  vector<Variable *> _varTable;
   Scanner _scanner;
   int _currentToken;
-  Node * _root;
-  int findFlag;
+  int _tableFlag;
+  stack<Exp*> _expStack;
 };
 #endif

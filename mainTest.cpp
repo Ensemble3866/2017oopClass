@@ -1,10 +1,14 @@
 #include <gtest/gtest.h>
-#include "utTerm.h"
-#include "utVariable.h"
-#include "utStruct.h"
+#include "utAtom.h"
+//#include "utExp.h"
+//#include "utIterator.h"
 #include "utList.h"
 #include "utParser.h"
-#include "utIterator.h"
+#include "utScanner.h"
+#include "utStruct.h"
+#include "utVariable.h"
+#include "expression.h"
+#include "exception.h"
 
 int main( int argc , char **argv )
 {

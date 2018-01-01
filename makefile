@@ -1,30 +1,26 @@
-all: hw7
+all: hw8
 
-hw7: mainTest.o term.o struct.o list.o
+hw8: mainTest.o atom.o list.o struct.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw7 mainTest.o term.o list.o struct.o -lgtest
+	g++ -o hw8 mainTest.o atom.o list.o struct.o -lgtest
 else
-	g++ -o hw7 mainTest.o term.o list.o struct.o -lgtest -lpthread
+	g++ -o hw8 mainTest.o atom.o list.o struct.o -lgtest -lpthread
 endif
 
-term.o: term.cpp term.h iterator.h
-	g++ -std=c++11 -c term.cpp
-mainTest.o: mainTest.cpp atom.h number.h variable.h struct.h list.h term.h parser.h scanner.h node.h iterator.h utTerm.h utVariable.h utStruct.h utList.h utParser.h utIterator.h
+mainTest.o: mainTest.cpp atom.h exp.h iterator.h list.h parser.h scanner.h struct.h variable.h utAtom.h utIterator.h utList.h utParser.h utScanner.h utStruct.h utVariable.h expression.h exception.h
 	g++ -std=gnu++0x -c mainTest.cpp
-list.o: list.cpp list.h iterator.h
-	g++ -std=gnu++0x -c list.cpp
-struct.o: struct.cpp struct.h iterator.h
-	g++ -std=gnu++0x -c struct.cpp
-utScanner: mainScanner.o scanner.h utScanner.h
-	g++ -o utScanner mainScanner.o -lgtest -lpthread
-mainScanner.o: mainScanner.cpp utScanner.h scanner.h  atom.h struct.h variable.h
-		g++ -std=c++11 -c mainScanner.cpp
-
-clean:	
-ifeq (${OS}, Windows_NT)
-	del *.o *.exe
-else
-	rm -f *.o hw7
-endif
+	
+atom.o: atom.cpp atom.h variable.h
+	g++ -std=c++11 -c atom.cpp
+list.o:list.cpp list.h
+		g++ -std=c++11 -c list.cpp
+struct.o:struct.cpp struct.h
+		g++ -std=c++11 -c struct.cpp
+#exp: mainExp.o
+#	g++ -o exp mainExp.o -lgtest -lpthread
+#mainExp.o: mainExp.cpp exp.h global.h
+#	g++ -std=c++11 -c mainExp.cpp
+clean:
+	rm -f *.o hw8
 stat:
 	wc *.h *.cpp
