@@ -81,8 +81,8 @@ public:
   }
 
   string text(){
-    if(_leftResult && (!_rightResult || _right->text() == "true")) return _left->text();
-    else if(!_leftResult && (_rightResult || _right->text() == "true")) return _right->text();
+    if(_leftResult && !_rightResult) return _left->text();
+    else if(!_leftResult && _rightResult) return _right->text();
     return _left->text() + "; " + _right->text();
   }
 

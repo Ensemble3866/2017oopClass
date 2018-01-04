@@ -13,6 +13,9 @@ Iterator * List::createIterator()
 }
 
 string List::symbol() const{
+
+  if(_init) return ("[]");
+  
   string ret = "[";
 
   for (const List* current = this; current != nullptr; current = dynamic_cast<List*> (current->tail()))

@@ -15,6 +15,8 @@ public:
 
 public:
 
+  List(): Struct(Atom("."), vector<Term *>()) { _init = true; }
+
   List (vector<Term *> const & elements): Struct(Atom("."), {elements[0], createTail(elements)}){
   }
 
@@ -26,17 +28,15 @@ public:
   Term * tail() const;
 
   Term * args(int index) {
-    return _elements[index];
+    return _args[index];
   }
 
   int arity() const {
-    return _elements.size();
+    return _args.size();
   }
 
   Iterator * createIterator();
 private:
-  vector<Term *> _elements;
-  
   Term* createTail(std::vector<Term*> const &args){
     Term* tail = new Atom("[]");
     for (int i = args.size() - 1; i > 0; i--) {
@@ -44,6 +44,8 @@ private:
     }
     return tail;
   }
+
+  bool _init = false;
 };
 
 #endif

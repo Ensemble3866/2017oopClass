@@ -370,7 +370,7 @@ TEST(Shell, disjunctionMatching5) {
     e->evaluate();
     string result = e->text() + '.';
 
-    ASSERT_EQ("X = 1; Y = 2.", result);
+    ASSERT_EQ("X = 1; true; Y = 2.", result);
   } catch (std::string &msg) {
     FAIL() << msg;
   }

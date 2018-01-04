@@ -9,6 +9,8 @@ using std::string;
 
 class Struct: public Term {
 public:
+  Struct(Atom name): _name(name){}
+
   Struct(Atom name, std::vector<Term *> args): _name(name), _args(args){
   }
 
