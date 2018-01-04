@@ -146,13 +146,6 @@ public:
     return _expStack.top();
   }
 
-private:
-  FRIEND_TEST(ParserTest, createArgs);
-  FRIEND_TEST(ParserTest,ListOfTermsEmpty);
-  FRIEND_TEST(ParserTest,listofTermsTwoNumber);
-  FRIEND_TEST(ParserTest, createTerm_nestedStruct3);
-  FRIEND_TEST(ParserTest, createTerms);
-
   void createTerms() {
     Term* term = createTerm();
     if(term!=nullptr)
@@ -166,6 +159,14 @@ private:
     }
   }
 
+private:
+  /*
+  FRIEND_TEST(ParserTest, createArgs);
+  FRIEND_TEST(ParserTest,ListOfTermsEmpty);
+  FRIEND_TEST(ParserTest,listofTermsTwoNumber);
+  FRIEND_TEST(ParserTest, createTerm_nestedStruct3);
+  FRIEND_TEST(ParserTest, createTerms);
+  */
   vector<Term *> _terms;
   vector<Variable *> _varTable;
   Scanner _scanner;
